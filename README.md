@@ -1,8 +1,9 @@
+<!-- mainisi is just a temporary name -->
 # MAINISI!
 
 This platform has no use (for now...)
-
-#Platform built with
+___
+## Platform built with
 ```
    Rails version: 5.1.2
    Ruby version: 2.3.1 (x86_64-linux-gnu)
