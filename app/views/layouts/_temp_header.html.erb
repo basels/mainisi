@@ -1,0 +1,38 @@
+<div id="diagram"></div>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.0/raphael-min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://flowchart.js.org/flowchart-latest.js"></script>
+<script>
+  var diagram = flowchart.parse('st=>start: Start\n' +
+'e_done=>end: You are done!\n' +
+'e_ask=>end: Ask someone\n' +
+'for help!\n' +
+'co_find=>condition: Can you find a menu\n' +
+'item or button which\n' +
+'looks related to what\n' +
+'you want to do?\n' +
+'co_pick=>condition: Pick one,\n' +
+'did you try\n' +
+'them all?\n' +
+'co_work=>condition: Did it\n' +
+'work?\n' +
+'co_seen=>condition: Have you been\n' +
+'trying this for\n' +
+'over 30 minutes?\n' +
+'op_click=>operation: Click it!\n' +
+'op_google=>operation: Google the program name\n' +
+'plus a few words related\n' +
+'to what you want.\n' +
+'Follow any instructions.\n' +
+'st->co_find\n' +
+'co_find(yes)->op_click->co_work\n' +
+'co_find(no)->co_pick\n' +
+'co_pick(yes, right)->op_google->co_work\n' +
+'co_pick(no)->op_click\n' +
+'co_work(yes)->e_done\n' +
+'co_work(no)->co_seen\n' +
+'co_seen(yes)->e_ask\n' +
+'co_seen(no)->co_find\n');
+
+  diagram.drawSVG('diagram');
+</script>
