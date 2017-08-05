@@ -7,7 +7,7 @@
 
 <p>
   <strong>User:</strong>
-  <%= @story.user_id %>
+  <%= link_to @story.user_id, @story.user %>
 </p>
 
 <%= link_to 'Edit', edit_story_path(@story) %> |
