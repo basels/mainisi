@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: "Clark Kent"
+  email: "clark@dailyplanet.com"
+
+two:
+  name: "Bruce Wayne"
+  email: "bruce@waynecorp.com"
