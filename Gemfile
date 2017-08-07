@@ -7,6 +7,8 @@ end
 
 # Rails
 gem 'rails', '~> 5.1.2'
+# state-of-the-art hash function
+gem 'bcrypt', '3.1.11'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
