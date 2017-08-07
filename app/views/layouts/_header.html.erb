@@ -3,7 +3,7 @@
     <nav>
       <%= link_to root_path, id: "logo", class: "navbar-brand" do %>
         <%= image_tag("mainisi_logo.png", class: "d-inline-block align-top", width: "20", height: "20", alt: "") %>
-        Mainisi
+        <%= full_title() %>
       <% end %>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home",   root_path %></li>
