@@ -5,7 +5,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     @base_title = "Mainisi"
   end
   
-test "should get home" do
+  test "should get home" do
     get root_path
     assert_response :success
     assert_select "title", "#{@base_title}"
@@ -22,5 +22,4 @@ test "should get home" do
     assert_response :success
     assert_select "title", "Sign up | #{@base_title}"
   end
-
 end
