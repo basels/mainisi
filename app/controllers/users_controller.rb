@@ -24,7 +24,6 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
-      remember @user
       flash[:success] = "Welcome to the Mainisi!"
       redirect_to @user
     else
