@@ -1,3 +1,5 @@
+require 'json'
+
 class User < ApplicationRecord
   attr_accessor :remember_token
   before_save { email.downcase! } #self.email = email.downcase
@@ -20,6 +22,31 @@ class User < ApplicationRecord
   # Returns a random token.
   def User.new_token
     SecureRandom.urlsafe_base64
+  end
+
+  def User.find_google_images(keyword)
+    google_api_key = ENV['GOOGLE_API_KEY']
+    google_search_cx = ENV['GOOGLE_SEARCH_CX']
+    url_h = "https://www.googleapis.com/customsearch/v1?"
+    url_q = {searchType: "image", q: keyword, key: google_api_key, cx: google_search_cx, num: "1" }.to_query
+    full_url = url_h + url_q
+    begin
+      json_results = open(full_url) {|f| f.read };
+      results = JSON.parse(json_results)
+      items = results['items']
+      if items.any?
+        first_link = items[0]['link']
+      else
+        first_link = nil
+      end
+    rescue Exception
+      first_link = nil
+    end
+    first_link
+    # in case we want more than 1, need to change num to X
+    #items.each do |item|
+    #  puts item['link']
+    #end
   end
 
   # Remembers a user in the database for use in persistent sessions.
