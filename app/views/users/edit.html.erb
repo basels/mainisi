@@ -1,6 +1,16 @@
-<h1>Editing User</h1>
+<% provide(:title, 'Edit Profile') %>
+<% provide(:button_text, 'Save changes') %>
+<h1><%= yield(:title) %></h1>
 
-<%= render 'form', user: @user %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div>
+      <%= profile_pic_for @user, size: 100 %>
+      <%= link_to 'Change', '#' %><!-- TODO -->
+    </div>
+    </br>
+    <%= render 'form', user: @user %>
+  </div>
+</div>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back to profile', users_path %>
