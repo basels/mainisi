@@ -1,11 +1,10 @@
 <% provide(:title, "Friends") %>
 <h1><%= yield(:title) %></h1>
 
+<%= will_paginate %>
+
 <ul class="users">
-  <% @users.each do |user| %>
-    <li>
-      <%= profile_pic_for user, size: 80 %>
-      <%= link_to user.name, user %>
-    </li>
-  <% end %>
+  <%= render @users %>
 </ul>
+
+<%= will_paginate %>
