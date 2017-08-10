@@ -9,6 +9,8 @@ end
 gem 'rails', '~> 5.1.2'
 # state-of-the-art hash function
 gem 'bcrypt', '3.1.11'
+# make sample users with semi-realistic names and email addresse
+gem 'faker',  '1.7.3'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
