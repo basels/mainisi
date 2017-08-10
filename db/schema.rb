@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 20170809163224) do
 
   create_table "stories", force: :cascade do |t|
-    t.text "content", limit: 128
+    t.text "content", limit: 512
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
