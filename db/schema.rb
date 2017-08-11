@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810164408) do
+ActiveRecord::Schema.define(version: 20170810230237) do
 
   create_table "stories", force: :cascade do |t|
     t.text "content", limit: 512
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20170810164408) do
     t.string "password_digest"
     t.string "remember_digest"
     t.string "profile_pic_path"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
