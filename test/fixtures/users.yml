@@ -2,6 +2,7 @@ clark:
   name: "Clark Kent"
   email: "clark@dailyplanet.com"
   password_digest: <%= User.digest('password') %>
+  admin: true
 
 bruce:
   name: "Bruce Wayne"
