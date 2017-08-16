@@ -1,4 +1,9 @@
 <li>
   <%= profile_pic_for user, size: 80 %>
   <%= link_to user.name, user %>
+  <% if current_user.admin? && !current_user?(user) %>
+    <%= link_to user, method: :delete, data: {confirm: "Are you sure?" } do %>
+      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+    <% end %>
+  <% end %>
 </li>
