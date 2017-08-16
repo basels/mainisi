@@ -1,9 +1,12 @@
-<% provide(:tite, @user.name) %>
+<% provide(:title, @user.name) %>
+
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
-      <h1><%= image_tag("profile_empty.jpg", class: "d-inline-block align-top", width: "150", height: "150", alt: "") %><%= @user.name %></h1>
- 
+      <h1>
+        <%= profile_pic_for @user, size: 150 %>
+        <%= @user.name %>
+      </h1>
       &lt;<%= @user.email %>&gt;
       <br /><br />
       Created at: <%= @user.created_at %>
@@ -21,7 +24,3 @@
     </section>
   </aside>
 </div>
-
-<br />
-<!-- %= link_to 'Edit', edit_user_path(@user) % --> |
-<%= link_to 'Back', users_path %>
