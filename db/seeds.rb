@@ -4,15 +4,19 @@ User.create!(name:                  "Admin Stupefy",
              email:                 "admin@hogwarts.edu",
              password:              password,
              password_confirmation: password,
-             admin:                 true)
+             admin:                 true,
+             activated:             true,
+             activated_at:          Time.zone.now)
 
-50.times do |n|
+49.times do |n|
   name  = Faker::HarryPotter.character
   email = "hp_#{n + 2}@hogwarts.edu"
   User.create!(name:                  name,
                email:                 email,
                password:              password,
-               password_confirmation: password)
+               password_confirmation: password,
+               activated:             true,
+               activated_at:          Time.zone.now)
 end
 
 25.times do |n|
