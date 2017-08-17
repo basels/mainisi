@@ -5,12 +5,13 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.paginate(page: params[:page], per_page: 20)
+    @users = User.where(activated: true).paginate(page: params[:page], per_page: 20)
   end
 
   # GET /users/1
   def show
     @user = User.find(params[:id])
+    redirect_to root_url and return unless @user.activated?
   end
 
   # GET /users/new
