@@ -31,10 +31,7 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-    if @user.secret_pass != ENV['SECRET_PASS']
-      flash[:danger] = "Please insert the secret pass provided to you!"
-      redirect_to signup_url
-    elsif @user.save
+    if @user.save
       @user.send_activation_email
       flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
