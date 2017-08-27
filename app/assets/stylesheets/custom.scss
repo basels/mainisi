@@ -1,5 +1,8 @@
+// Bootstrap
 @import "bootstrap-sprockets";
 @import "bootstrap";
+// Google fonts
+@import url("https://fonts.googleapis.com/css?family=Satisfy");
 
 /* mixins, variables, etc. */
 $gray-medium-light: #eaeaea;
@@ -65,8 +68,8 @@ p {
 #logo {
   float: left;
   color: $light-pink;
-  text-transform: uppercase;
-  font-weight: bold;
+  font-family: 'Satisfy', cursive;
+  font-size: 2em;
   &:hover {
     color: white;
     text-decoration: none;

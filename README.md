@@ -1,7 +1,6 @@
-<!-- TODO: mainisi is just a temporary name -->
-## MAINISI!
+## Good Vibes
 
-This platform has no use (for now...)
+This platform is a private twitter-like social network
 
 ### Platform built with
 ```
