@@ -16,7 +16,12 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    if logged_in?
+      flash[:info] = "You are already signed in!"
+      redirect_to stories_url
+    else
+      @user = User.new
+    end
   end
 
   # GET /users/1/edit
