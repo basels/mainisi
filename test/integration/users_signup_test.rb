@@ -11,11 +11,23 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       post users_path, params: { user: { name:  "",
                                          email: "user@invalid",
                                          password:              "foo",
-                                         password_confirmation: "bar" } }
+                                         password_confirmation: "bar",
+                                         secret_pass: ENV['SECRET_PASS'] } }
     end
     assert_template 'users/new'
     assert_select 'div#error_explanation'
     assert_select 'div.field_with_errors'
+  end
+
+  test "invalid signup due to wrong secret_pass" do
+    get signup_path
+    assert_no_difference 'User.count' do
+      post users_path, params: { user: { name:  "Example User",
+                                         email: "user@example.com",
+                                         password:              "password",
+                                         password_confirmation: "password",
+                                         secret_pass: "wrongkey" } }
+    end
   end
 
   test "valid signup information with account validation" do
@@ -24,7 +36,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       post users_path, params: { user: { name:  "Example User",
                                          email: "user@example.com",
                                          password:              "password",
-                                         password_confirmation: "password" } }
+                                         password_confirmation: "password",
+                                         secret_pass: ENV['SECRET_PASS'] } }
     end
     assert_equal 1, ActionMailer::Base.deliveries.size
     user = assigns(:user)

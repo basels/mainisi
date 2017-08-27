@@ -24,7 +24,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       post users_url, params: { user: { email: dup_user.email,
                                         name: dup_user.name,
                                         password: 'password',
-                                        password_confirmation: 'password' } }
+                                        password_confirmation: 'password',
+                                        secret_pass: ENV['SECRET_PASS'] } }
     end
     #assert_redirected_to user_url(User.last) TODO
   end

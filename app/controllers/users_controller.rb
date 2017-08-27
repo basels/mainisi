@@ -26,7 +26,10 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-    if @user.save
+    if @user.secret_pass != ENV['SECRET_PASS']
+      flash[:danger] = "Please insert the secret pass provided to you!"
+      redirect_to signup_url
+    elsif @user.save
       @user.send_activation_email
       flash[:info] = "Please check your email to activate your account."
       redirect_to root_url
@@ -55,7 +58,7 @@ class UsersController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :secret_pass)
     end
 
     # Confirms a logged-in user.
