@@ -31,6 +31,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show user" do
+    log_in_as(@other_user)
     get user_url(@user)
     assert_response :success
   end

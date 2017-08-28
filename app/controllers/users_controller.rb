@@ -42,6 +42,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
+    @user.secret_pass = ENV['SECRET_PASS']
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
       redirect_to @user
