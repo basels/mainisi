@@ -1,22 +1,9 @@
-<%= form_with(model: story, local: true) do |form| %>
-  <% if story.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(story.errors.count, "error") %> prohibited this story from being saved:</h2>
+<%= form_with(model: story, local: true) do |f| %>
+  <%= render 'shared/story_error_messages' %>
 
-      <ul>
-      <% story.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.label "Add a post:" %>
+  <%= f.text_area :content, class: 'form-control' %>
 
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content, id: :story_content %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= f.submit "Post", class: "btn btn-primary" %>
 <% end %>
+

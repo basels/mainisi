@@ -1,6 +1,8 @@
 <% provide(:title, "Feed") %>
 <h1 id="logo_h2"><%= yield(:title) %></h1>
 
+<%= render 'form', story: @story %>
+
 <%= will_paginate %>
 
 <ul class="users">

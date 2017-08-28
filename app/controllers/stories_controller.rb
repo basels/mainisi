@@ -1,26 +1,17 @@
 class StoriesController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :new, :edit, :create, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :logged_in_user, only: [:index, :show, :create, :destroy]
 
   # GET /stories
   def index
     @stories = Story.order('created_at DESC').paginate(page: params[:page], per_page: 20)
+    # To allow adding a new story
+    @story = Story.new
+    @story.user_id = current_user.id
   end
 
   # GET /stories/1
   def show
     @story = Story.find(params[:id])
-  end
-
-  # GET /stories/new
-  def new
-    @story = Story.new
-    @story.user_id = current_user.id
-  end
-
-  # GET /stories/1/edit
-  def edit
   end
 
   # POST /stories
@@ -31,22 +22,17 @@ class StoriesController < ApplicationController
       flash[:info] = "Post submitted successfully"
       redirect_to stories_url
     else
-      render :new
-    end
-  end
-
-  # PATCH/PUT /stories/1
-  def update
-    if @story.update_attributes(story_params)
-      flash[:success] = "Post updated successfully"
-      redirect_to stories_url
-    else
-      render :edit
+      @stories = Story.order('created_at DESC').paginate(page: params[:page], per_page: 20)
+      render :index
     end
   end
 
   # DELETE /stories/1
   def destroy
+    @story = Story.find(params[:id])
+    user = @story.user
+    # Confirms admin or correct user
+    redirect_to(stories_url) unless (current_user.admin? || current_user?(user))
     Story.find(params[:id]).destroy
     flash[:success] = "Story deleted"
     redirect_to stories_url
@@ -65,17 +51,5 @@ class StoriesController < ApplicationController
         flash[:danger] = "Please log in."
         redirect_to login_url
       end
-    end
-
-    # Confirms the correct user.
-    def correct_user
-      @story = Story.find(params[:id])
-      user = @story.user
-      redirect_to(stories_url) unless current_user?(user)
-    end
-
-    # Confirms an admin user.
-    def admin_user
-      redirect_to(stories_url) unless current_user.admin?
     end
 end
