@@ -14,13 +14,12 @@
       Updated at: <%= @user.created_at %>
 
       <br /><br />
-      Stories:
-      <br />
-      <ul>
+      <ul class="users"> <!-- TODO: fix -->
         <% @user.stories.each do |story| %>
-          <li><%= story.content %></li>
+          <%= render story %>
         <% end %>
       </ul>
+
     </section>
   </aside>
 </div>

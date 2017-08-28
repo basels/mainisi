@@ -36,6 +36,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Shim to load environment variables from .env into ENV in development.
   gem 'dotenv-rails'
+  gem 'railroady'
 end
 
 group :development do

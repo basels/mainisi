@@ -6,7 +6,8 @@ User.create!(name:                  "Admin Stupefy",
              password_confirmation: password,
              admin:                 true,
              activated:             true,
-             activated_at:          Time.zone.now)
+             activated_at:          Time.zone.now,
+             secret_pass:           ENV['SECRET_PASS'])
 
 49.times do |n|
   name  = Faker::HarryPotter.character
@@ -16,7 +17,8 @@ User.create!(name:                  "Admin Stupefy",
                password:              password,
                password_confirmation: password,
                activated:             true,
-               activated_at:          Time.zone.now)
+               activated_at:          Time.zone.now,
+               secret_pass:           ENV['SECRET_PASS'])
 end
 
 25.times do |n|
