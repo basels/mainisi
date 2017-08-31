@@ -1,14 +1,5 @@
-class SecretPassValidator < ActiveModel::Validator
-  def validate(record)
-    unless record.secret_pass == ENV['SECRET_PASS']
-      record.errors[:secret_pass] << 'is incorrect!'
-    end
-  end
-end
- 
 class User < ApplicationRecord
-  include ActiveModel::Validations
-  attr_accessor :remember_token, :activation_token, :secret_pass, :reset_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   before_create :create_activation_digest
 
@@ -21,7 +12,6 @@ class User < ApplicationRecord
   has_secure_password
   # as_secure_password includes a separate presence validation that specifically catches nil passwords
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-  validates_with SecretPassValidator
 
   # Returns the hash digest of the given string.
   def User.digest(string)
@@ -74,6 +64,11 @@ class User < ApplicationRecord
   # Sends password reset email.
   def send_password_reset_email
     UserMailer.password_reset(self).deliver_now
+  end
+
+  # Returns true if a password reset has expired.
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
   end
 
   private
