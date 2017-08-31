@@ -17,6 +17,7 @@ gem 'bootstrap-will_paginate', '1.0.0'
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+gem 'font-awesome-sass'
 # a framework from Twitter that makes it easy to add nice web design
 gem 'bootstrap-sass', '3.3.7'
 # Use Uglifier as compressor for JavaScript assets
