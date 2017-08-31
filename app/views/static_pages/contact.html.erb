@@ -1,0 +1,22 @@
+<% provide(:title, "Contact") %>
+<h2>Hello! I am</h2>
+<h1 id="logo_h2">Basel Shbita</h1>
+<h2><%= image_tag('baselshbita.png', alt: 'Basel Shbita') %></h2>
+<h2>Follow me on social media</h2>
+<h2>
+  <%= link_to @linkedin_url, class: "btn btn-social-icon btn-linkedin", target: :_blank do %>
+    <span class="fa fa-linkedin"></span>
+  <% end %>
+  <%= link_to @github_url, class: "btn btn-social-icon btn-github", target: :_blank do %>
+    <span class="fa fa-github"></span>
+  <% end %>
+  <%= link_to @facebook_url, class: "btn btn-social-icon btn-facebook", target: :_blank do %>
+    <span class="fa fa-facebook"></span>
+  <% end %>
+  <%= link_to @instagram_url, class: "btn btn-social-icon btn-instagram", target: :_blank do %>
+    <span class="fa fa-instagram"></span>
+  <% end %>
+  <%= link_to @soundcloud_url, class: "btn btn-social-icon btn-soundcloud", target: :_blank do %>
+    <span class="fa fa-soundcloud"></span>
+  <% end %>
+</h2>
