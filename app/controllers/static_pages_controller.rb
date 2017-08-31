@@ -12,4 +12,8 @@ class StaticPagesController < ApplicationController
     @instagram_url = 'https://www.instagram.com/basel92'
     @soundcloud_url = 'https://soundcloud.com/basels'
   end
+
+  def about
+    @github_repo_url = 'https://github.com/basels/mainisi'
+  end
 end
