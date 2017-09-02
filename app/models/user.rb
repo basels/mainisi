@@ -26,10 +26,12 @@ class User < ApplicationRecord
   end
 
   def User.find_google_images(keyword)
-    google_api_key = ENV['GOOGLE_API_KEY']
-    google_search_cx = ENV['GOOGLE_SEARCH_CX']
-    url_h = "https://www.googleapis.com/customsearch/v1?"
-    url_q = {searchType: "image", q: keyword, key: google_api_key, cx: google_search_cx, num: "1" }.to_query
+    #google_api_key = ENV['GOOGLE_API_KEY']
+    #google_search_cx = ENV['GOOGLE_SEARCH_CX']
+    #url_h = "https://www.googleapis.com/customsearch/v1?"
+    url_h = "https://www.google.co.il/search?"
+    #url_q = {searchType: "image", q: keyword, key: google_api_key, cx: google_search_cx, num: "1" }.to_query
+    url_q = {q: keyword, tbm: 'isch'}.to_query
     full_url = url_h + url_q
     begin
       uri = URI.parse(full_url)
@@ -37,10 +39,14 @@ class User < ApplicationRecord
       http.use_ssl = true
       req = Net::HTTP::Get.new(uri.request_uri)
       resp = http.request(req)
-      results = JSON.parse(resp.body)
-      items = results['items']
-      if items.any?
-        first_link = items[0]['link']
+      #results = JSON.parse(resp.body)
+      results = Nokogiri::HTML(resp.body)
+      #items = results['items']
+      items = results.css('img').map{ |i| i['src'] }
+      #if items.any?
+      #  first_link = items[0]['link']
+      if items.count > 1
+        first_link = items[1]
       else
         first_link = nil
       end

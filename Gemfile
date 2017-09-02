@@ -31,6 +31,8 @@ gem 'turbolinks', '~> 5'
 gem 'json'
 # Build JSON APIs with ease.
 gem 'jbuilder', '~> 2.5'
+# HTML, XML, SAX, and Reader parser
+gem 'nokogiri'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
