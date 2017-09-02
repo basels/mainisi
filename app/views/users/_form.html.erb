@@ -1,5 +1,5 @@
 <%= form_with(model: user, local: true) do |f| %>
-  <%= render 'shared/error_messages' %>
+  <%= render 'shared/user_error_messages' %>
 
   <%= f.label :name %>
   <%= f.text_field :name, class: 'form-control' %>
@@ -10,8 +10,14 @@
   <%= f.label :password %>
   <%= f.password_field :password, class: 'form-control' %>
 
-  <%= f.label :password_confirmation, "Confirmation" %>
+  <%= f.label :password_confirmation, "Password Confirmation" %>
   <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+  <!-- Only in case of "Create my account" ask for secret_pass -->
+  <% if yield(:button_text) != 'Save changes' %>
+    <%= f.label :secret_pass, "Secret Pass" %>
+    <%= f.password_field :secret_pass, class: 'form-control' %>
+  <% end %>
 
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>

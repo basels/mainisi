@@ -1,21 +1,27 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit,  :update]
   before_action :admin_user,     only: :destroy
 
   # GET /users
   def index
-    @users = User.paginate(page: params[:page], per_page: 20)
+    @users = User.where(activated: true).paginate(page: params[:page], per_page: 20)
   end
 
   # GET /users/1
   def show
     @user = User.find(params[:id])
+    redirect_to root_url and return unless @user.activated?
   end
 
   # GET /users/new
   def new
-    @user = User.new
+    if logged_in?
+      flash[:info] = "You are already signed in!"
+      redirect_to stories_url
+    else
+      @user = User.new
+    end
   end
 
   # GET /users/1/edit
@@ -25,12 +31,15 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-    if @user.save
-      log_in @user
-      flash[:success] = "Welcome to the Mainisi!"
-      redirect_to @user
+    if params[:user][:secret_pass] != ENV['SECRET_PASS']
+      @user.errors.add(:secret_pass, "is incorrect!")
+      render 'new'
+    elsif @user.save
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
     else
-      render :new
+      render 'new'
     end
   end
 

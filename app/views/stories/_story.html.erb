@@ -1,0 +1,17 @@
+<li>
+  <%= profile_pic_for story.user, size: 40 %>
+  <%= link_to story.user.name, story.user %>
+  <br/><br/>
+  <%= link_to story do %>
+    <span style="color:gray">
+      [<%= story.created_at.strftime('%T, %a, %d %B %Y') %>]
+    </span>
+  <% end %>
+  <% if current_user.admin? || current_user?(story.user) %>
+    <%= link_to story, method: :delete, data: {confirm: "Are you sure?" } do %>
+      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+    <% end %>
+  <% end %>
+  <br/>
+  <%= story.content %>
+</li>

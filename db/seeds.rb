@@ -1,18 +1,20 @@
-password = "123456"
-
 User.create!(name:                  "Admin Stupefy",
              email:                 "admin@hogwarts.edu",
-             password:              password,
-             password_confirmation: password,
-             admin:                 true)
+             password:              ENV['SEED_PASSWORD'],
+             password_confirmation: ENV['SEED_PASSWORD'],
+             admin:                 true,
+             activated:             true,
+             activated_at:          Time.zone.now)
 
-50.times do |n|
+49.times do |n|
   name  = Faker::HarryPotter.character
   email = "hp_#{n + 2}@hogwarts.edu"
   User.create!(name:                  name,
                email:                 email,
-               password:              password,
-               password_confirmation: password)
+               password:              ENV['SEED_PASSWORD'],
+               password_confirmation: ENV['SEED_PASSWORD'],
+               activated:             true,
+               activated_at:          Time.zone.now)
 end
 
 25.times do |n|
