@@ -28,27 +28,40 @@ class User < ApplicationRecord
   def User.find_google_images(keyword)
     google_api_key = ENV['GOOGLE_API_KEY']
     google_search_cx = ENV['GOOGLE_SEARCH_CX']
-    url_h = "https://www.googleapis.com/customsearch/v1?"
-    #url_h = "https://www.google.co.il/search?"
-    url_q = {searchType: "image", q: keyword, key: google_api_key, cx: google_search_cx, num: "1" }.to_query
-    #url_q = {q: keyword, tbm: 'isch'}.to_query
+    if (ENV['USE_GOOGLE_SCE'] == '1')
+      url_h = "https://www.googleapis.com/customsearch/v1?"
+      url_q = {searchType: "image", q: keyword, key: google_api_key, cx: google_search_cx, num: "1" }.to_query
+    else
+      url_h = "https://www.google.com/search?"
+      url_q = {q: keyword, tbm: 'isch'}.to_query
+    end
     full_url = url_h + url_q
+    puts full_url
     begin
       uri = URI.parse(full_url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
       req = Net::HTTP::Get.new(uri.request_uri)
       resp = http.request(req)
-      results = JSON.parse(resp.body)
-      #results = Nokogiri::HTML(resp.body)
-      items = results['items']
-      #items = results.css('img').map{ |i| i['src'] }
-      if items.any?
-        first_link = items[0]['link']
-      #if items.count > 1
-      #  first_link = items[1]
+      if (ENV['USE_GOOGLE_SCE'] == '1')
+        results = JSON.parse(resp.body)
+        items = results['items']
       else
-        first_link = nil
+        results = Nokogiri::HTML(resp.body)
+        items = results.css('img').map{ |i| i['src'] }
+      end
+      if (ENV['USE_GOOGLE_SCE'] == '1')
+        if items.any?
+          first_link = items[0]['link']
+        else
+          first_link = nil
+        end
+      else
+        if items.count > 1
+          first_link = items[1]
+        else
+          first_link = nil
+        end
       end
     rescue Exception
       first_link = nil
