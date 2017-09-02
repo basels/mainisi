@@ -31,6 +31,7 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
+    @user.profile_pic_path = User.find_google_images(@user.name)
     if params[:user][:secret_pass] != ENV['SECRET_PASS']
       @user.errors.add(:secret_pass, "is incorrect!")
       render 'new'

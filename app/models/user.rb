@@ -1,5 +1,3 @@
-require 'json'
-
 class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
@@ -34,8 +32,12 @@ class User < ApplicationRecord
     url_q = {searchType: "image", q: keyword, key: google_api_key, cx: google_search_cx, num: "1" }.to_query
     full_url = url_h + url_q
     begin
-      json_results = open(full_url) {|f| f.read };
-      results = JSON.parse(json_results)
+      uri = URI.parse(full_url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      req = Net::HTTP::Get.new(uri.request_uri)
+      resp = http.request(req)
+      results = JSON.parse(resp.body)
       items = results['items']
       if items.any?
         first_link = items[0]['link']

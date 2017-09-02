@@ -22,6 +22,11 @@ Next, migrate the database:
 $ rails db:migrate
 ```
 
+(optional) Seed the database:
+```
+$ rails db:seed
+```
+
 Finally, run the test suite to verify that everything is working correctly:
 ```
 $ rails test
@@ -43,3 +48,12 @@ $ heroku addons:create sendgrid:starter
 #### Secret Pass
 To allow people to register, a secret pass is required! You will need to set the following env var to some value:
 * `SECRET_PASS`
+
+#### DB Seed
+To allow database seeding, a pre-defined password is required! You will need to set the following env var to some value:
+* `SEED_PASSWORD`
+
+#### (embedded) Google Image Search
+To allow Google image search (via Google Custom Search Engine), you will need to set the following env var to your CSE parameters:
+* `GOOGLE_API_KEY`
+* `GOOGLE_SEARCH_CX`
