@@ -25,6 +25,35 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
+  def User.find_google_images(keyword)
+    google_api_key = ENV['GOOGLE_API_KEY']
+    google_search_cx = ENV['GOOGLE_SEARCH_CX']
+    url_h = "https://www.googleapis.com/customsearch/v1?"
+    url_q = {searchType: "image", q: keyword, key: google_api_key, cx: google_search_cx, num: "1" }.to_query
+    full_url = url_h + url_q
+    begin
+      uri = URI.parse(full_url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      req = Net::HTTP::Get.new(uri.request_uri)
+      resp = http.request(req)
+      results = JSON.parse(resp.body)
+      items = results['items']
+      if items.any?
+        first_link = items[0]['link']
+      else
+        first_link = nil
+      end
+    rescue Exception
+      first_link = nil
+    end
+    first_link
+    # in case we want more than 1, need to change num to X
+    #items.each do |item|
+    #  puts item['link']
+    #end
+  end
+
   # Remembers a user in the database for use in persistent sessions.
   def remember
     self.remember_token = User.new_token

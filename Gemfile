@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Rails
-gem 'rails', '~> 5.1.2'
+gem 'rails', '5.1.2'
 # state-of-the-art hash function
 gem 'bcrypt', '3.1.11'
 # make sample users with semi-realistic names and email addresse
@@ -28,6 +28,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails', '4.3.1'
 # Turbolinks makes navigating your web application faster
 gem 'turbolinks', '~> 5'
+gem 'json'
 # Build JSON APIs with ease.
 gem 'jbuilder', '~> 2.5'
 
