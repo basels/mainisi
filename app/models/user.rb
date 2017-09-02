@@ -36,7 +36,6 @@ class User < ApplicationRecord
       url_q = {q: keyword, tbm: 'isch'}.to_query
     end
     full_url = url_h + url_q
-    puts full_url
     begin
       uri = URI.parse(full_url)
       http = Net::HTTP.new(uri.host, uri.port)
