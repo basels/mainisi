@@ -32,7 +32,7 @@ class User < ApplicationRecord
       url_h = "https://www.googleapis.com/customsearch/v1?"
       url_q = {searchType: "image", q: keyword, key: google_api_key, cx: google_search_cx, num: "1" }.to_query
     else
-      url_h = "https://www.google.com/search?"
+      url_h = "https://www.google.co.il/search?"
       url_q = {q: keyword, tbm: 'isch'}.to_query
     end
     full_url = url_h + url_q

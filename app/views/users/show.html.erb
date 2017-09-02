@@ -15,7 +15,7 @@
 
       <br /><br />
       <ul class="users"> <!-- TODO: fix -->
-        <% @user.stories.each do |story| %>
+        <% @user.stories.order('created_at DESC').each do |story| %>
           <%= render story %>
         <% end %>
       </ul>
